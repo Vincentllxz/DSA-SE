@@ -14,6 +14,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     transition: box-shadow 0.3s ease;
+    animation-delay: 0.3s;
 }
 .container:hover {
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
@@ -148,6 +149,9 @@ canvas {
     flex-direction: row;
     height: 100vh;
     overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.9s ease-out forwards;
+    animation-delay: 0.5s;
 }
 
 .sidebar {
@@ -184,6 +188,8 @@ canvas {
     text-align: center;
     background: linear-gradient(to right, #37474f, #263238);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    animation: fadeInUp 0.9s ease-out forwards;
 }
 
 .header h1 {
@@ -203,6 +209,8 @@ canvas {
     color: #e0f2f1;
     font-size: 15px;
     line-height: 1.7;
+    opacity: 0;
+    animation: fadeInUp 0.9s ease-out forwards;
 }
 
 .global-instruction h3 {
@@ -242,10 +250,25 @@ canvas {
     box-shadow: 0 0 3px rgba(38, 166, 154, 0.6);
 }
 
+.instructions.global-instruction strong {
+    color: #26a69a;
+    font-weight: bold;
+}
+
 #graph-canvas {
     background-image: url("DSA_GOD.jpeg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
-  
+
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFS Visaulisation Group 26</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="header">
+        <h1>DFS Visaulizer</h1>
+    </div>
+
+    <div class="instructions global-instruction">
+        <h3><span class="icon-title">📋</span> Instructions</h3>
+        <ul>
+        <li><strong>Add Node:</strong> Click the button, then click on the canvas <strong>(The face of DSA GOD)</strong> to place a new node.</li>
+        <li><strong>Add Edge:</strong> Click the button, then select two nodes to connect them.</li>
+        <li><strong>Remove:</strong> Click the button, then click a node or edge to delete it.</li>
+        <li><strong>DFS:</strong> Run the entire depth-first search process.</li>
+        <li><strong>Search for One Step:</strong> Advance DFS one step at a time.</li>
+        <li><strong>Reset:</strong> Clear the canvas and restart.</li>
+        </ul>
+    </div>
+    
+
+    <div class="layout">
+        <div class="sidebar">
+        <h3>Controls</h3>
+        <div class="btn-group">
+            <button id="run-dfs">DFS</button>
+            <button id="step-dfs" disabled>Search for One Step</button>
+            <button id="reset">Reset</button>
+        </div>
+        <h3>Graph Editting</h3>
+        <div class="btn-group">
+            <button id="add-node">Add Node</button>
+            <button id="add-edge">Add Edge</button>
+            <button id="remove">Remove</button>
+        </div>
+        </div>
+
+        <div class="container">
+        <div id="canvas-container">
+            <canvas id="graph-canvas"></canvas>
+        </div>
+
+        <div class="queue-visualization">
+            <h3>Stack for DFS</h3>
+            <div id="queue-container">
+            <div class="empty-queue">EMPTY</div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+            <div class="legend-color" style="background-color: #4CAF50;"></div>
+            <span>Unvisited Node</span>
+            </div>
+            <div class="legend-item">
+            <div class="legend-color" style="background-color: #FF9800;"></div>
+            <span>Node in Processing</span>
+            </div>
+            <div class="legend-item">
+            <div class="legend-color" style="background-color: #2196F3;"></div>
+            <span>Visited Node</span>
+            </div>
+            <div class="legend-item">
+            <div class="legend-color" style="background-color: #FF5722;"></div>
+            <span>Visited Edge</span>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

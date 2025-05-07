@@ -1,78 +1,113 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DFS Visaulisation Group 26</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <title>DFS Visualisation Group 26</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #121212, #1e1e1e);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #f1f1f1;
+    }
+
+    .header-section,
+    .content-wrapper {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 40px 60px;
+      box-sizing: border-box;
+      opacity: 0;
+      animation: fadeInUp 0.9s ease-out forwards;
+    }
+
+    .header-section {
+      text-align: center;
+      padding-top: 60px;
+      padding-bottom: 30px;
+      background: linear-gradient(to right, #37474f, #263238);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-section h1 {
+      font-size: 42px;
+      color: #80cbc4;
+      margin: 0;
+    }
+
+    .content-wrapper {
+      animation-delay: 0.3s;
+      min-height: calc(100% - 150px); /* 預留 header 高度 */
+    }
+
+    .instructions.global-instruction {
+      text-align: left;
+    }
+
+    .instructions.global-instruction strong {
+      color: #26a69a;
+      font-weight: bold;
+    }
+
+    .start-button {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .start-button a {
+      display: inline-block;
+      background-color: #00796b;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .start-button a:hover {
+      background-color: #004d40;
+      transform: scale(1.5);
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>DFS Visaulisation</h1>
-    </div>
+  <div class="header-section">
+    <h1>DFS Visualisation</h1>
+  </div>
 
+  <div class="content-wrapper">
     <div class="instructions global-instruction">
-        <h3><span class="icon-title">📋</span> Instructions</h3>
-        <ul>
+      <h3><span class="icon-title">📋</span> Instructions</h3>
+      <ul>
         <li><strong>Add Node:</strong> Click the button, then click on the canvas <strong>(The face of DSA GOD)</strong> to place a new node.</li>
         <li><strong>Add Edge:</strong> Click the button, then select two nodes to connect them.</li>
         <li><strong>Remove:</strong> Click the button, then click a node or edge to delete it.</li>
         <li><strong>DFS:</strong> Run the entire depth-first search process.</li>
         <li><strong>Search for One Step:</strong> Advance DFS one step at a time.</li>
         <li><strong>Reset:</strong> Clear the canvas and restart.</li>
-        </ul>
-    </div>
-    
-
-    <div class="layout">
-        <div class="sidebar">
-        <div class="btn-group">
-            <button id="run-dfs">DFS</button>
-            <button id="step-dfs" disabled>Search for One Step</button>
-            <button id="reset">Reset</button>
-        </div>
-        <div class="btn-group">
-            <button id="add-node">Add Node</button>
-            <button id="add-edge">Add Edge</button>
-            <button id="remove">Remove</button>
-        </div>
-        </div>
-
-        <div class="container">
-        <div id="canvas-container">
-            <canvas id="graph-canvas"></canvas>
-        </div>
-
-        <div class="queue-visualization">
-            <h3>Stack for DFS</h3>
-            <div id="queue-container">
-            <div class="empty-queue">EMPTY</div>
-            </div>
-        </div>
-
-        <div class="legend">
-            <h3>Legend</h3>
-            <div class="legend-item">
-            <div class="legend-color" style="background-color: #4CAF50;"></div>
-            <span>Unvisited Node</span>
-            </div>
-            <div class="legend-item">
-            <div class="legend-color" style="background-color: #FF9800;"></div>
-            <span>Node in Processing</span>
-            </div>
-            <div class="legend-item">
-            <div class="legend-color" style="background-color: #2196F3;"></div>
-            <span>Visited Node</span>
-            </div>
-            <div class="legend-item">
-            <div class="legend-color" style="background-color: #FF5722;"></div>
-            <span>Visited Edge</span>
-            </div>
-        </div>
-        
-        </div>
+      </ul>
     </div>
 
-    <script src="script.js"></script>
+    <div class="start-button">
+      <a href="dfs.html">Start ➔</a>
+    </div>
+  </div>
 </body>
 </html>
