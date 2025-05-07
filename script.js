@@ -692,6 +692,7 @@ function updateButtonStates() {
     const stepDFSBtn = document.getElementById('step-dfs');
     const runBFSBtn = document.getElementById('run-bfs');
     const stepBFSBtn = document.getElementById('step-bfs');
+    const stopBtn = document.getElementById('stop');
 
     if (processing) {
         const runningDFS = dfsQueue.length > 0;
@@ -702,14 +703,30 @@ function updateButtonStates() {
 
         runBFSBtn.disabled = runningDFS;
         stepBFSBtn.disabled = runningDFS;
+
+        stopBtn.disabled = false; // ✅ 執行中可點
     } else {
         runDFSBtn.disabled = false;
         stepDFSBtn.disabled = dfsQueue.length === 0;
 
         runBFSBtn.disabled = false;
         stepBFSBtn.disabled = bfsQueue.length === 0;
+
+        stopBtn.disabled = true; // ✅ 非執行狀態關閉
     }
 }
+
+
+document.getElementById('stop').addEventListener('click', () => {
+    processing = false;
+    stepMode = false;
+    dfsQueue = [];
+    bfsQueue = [];
+    activeNodes = [];
+    updateQueueVisualization();
+    updateButtonStates();
+    draw();
+});
 
 
 resetDFS();
