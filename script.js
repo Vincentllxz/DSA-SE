@@ -562,9 +562,14 @@ document.getElementById('remove').addEventListener('click', () => {
 });
 
 function updateModeUI() {
-    document.getElementById('add-node').style.backgroundColor = mode === 'add-node' ? '#45a049' : '#4CAF50';
-    document.getElementById('add-edge').style.backgroundColor = mode === 'add-edge' ? '#45a049' : '#4CAF50';
-    document.getElementById('remove').style.backgroundColor = mode === 'remove' ? '#45a049' : '#4CAF50';
+    const addNodeBtn = document.getElementById('add-node');
+    const addEdgeBtn = document.getElementById('add-edge');
+    const removeBtn = document.getElementById('remove');
+
+    addNodeBtn.classList.toggle('active-btn', mode === 'add-node');
+    addEdgeBtn.classList.toggle('active-btn', mode === 'add-edge');
+    removeBtn.classList.toggle('active-btn', mode === 'remove');
 }
+
 
 resetDFS();

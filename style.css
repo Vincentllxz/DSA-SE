@@ -73,7 +73,12 @@ button:disabled {
     box-shadow: none;
 }
 
-/* 畫布容器 */
+button.active-btn {
+    background: linear-gradient(to right, #ff7043, #d84315); /* 橘紅色系 */
+    box-shadow: 0 2px 8px rgba(255, 112, 67, 0.4);
+  }
+  
+
 #canvas-container {
     position: relative;
     width: 100%;
@@ -84,7 +89,6 @@ button:disabled {
     overflow: hidden;
 }
 
-/* 其他元素樣式 */
 canvas {
     display: block;
 }
@@ -176,6 +180,7 @@ canvas {
 .header {
     width: 100%;
     padding: 30px 0;
+    border-radius: 12px;
     text-align: center;
     background: linear-gradient(to right, #37474f, #263238);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
