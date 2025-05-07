@@ -259,6 +259,7 @@ function resetDFS() {
     updateQueueVisualization();
     draw();
     // log('Reset');
+    updateButtonStates();
 }
 
 function runDFS() {
@@ -277,6 +278,7 @@ function runDFS() {
     generateAllDFSSteps();
     
     animateDFS();
+    updateButtonStates();
 }
 function updateQueueVisualization() {
     const queueContainer = document.getElementById('queue-container');
@@ -468,6 +470,7 @@ function animateDFS() {
     if (!stepMode) {
         setTimeout(() => animateDFS(), animationSpeed);
     }
+    updateButtonStates();
 }
 
 function animateBFS() {
@@ -500,6 +503,7 @@ function animateBFS() {
 
     draw();
     if (!stepMode) setTimeout(() => animateBFS(), animationSpeed);
+    updateButtonStates();
 }
 
 
@@ -648,6 +652,7 @@ document.getElementById('run-bfs').addEventListener('click', () => {
     document.getElementById('step-bfs').disabled = false;
     generateAllBFSSteps();
     animateBFS();
+    updateButtonStates();
 });
 document.getElementById('step-bfs').addEventListener('click', stepBFS);
 
@@ -682,5 +687,30 @@ function updateModeUI() {
     removeBtn.classList.toggle('active-btn', mode === 'remove');
 }
 
+function updateButtonStates() {
+    const runDFSBtn = document.getElementById('run-dfs');
+    const stepDFSBtn = document.getElementById('step-dfs');
+    const runBFSBtn = document.getElementById('run-bfs');
+    const stepBFSBtn = document.getElementById('step-bfs');
+
+    if (processing) {
+        const runningDFS = dfsQueue.length > 0;
+        const runningBFS = bfsQueue.length > 0;
+
+        runDFSBtn.disabled = runningBFS;
+        stepDFSBtn.disabled = runningBFS;
+
+        runBFSBtn.disabled = runningDFS;
+        stepBFSBtn.disabled = runningDFS;
+    } else {
+        runDFSBtn.disabled = false;
+        stepDFSBtn.disabled = dfsQueue.length === 0;
+
+        runBFSBtn.disabled = false;
+        stepBFSBtn.disabled = bfsQueue.length === 0;
+    }
+}
+
 
 resetDFS();
+updateButtonStates();
