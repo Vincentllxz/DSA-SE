@@ -635,6 +635,8 @@ function removeElement(x, y) {
     draw();
 }
 
+
+
 // document.getElementById('create-graph').addEventListener('click', createRandomGraph);
 document.getElementById('reset').addEventListener('click', resetGraph);
 document.getElementById('run-dfs').addEventListener('click', runDFS);
