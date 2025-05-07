@@ -278,29 +278,43 @@ function runDFS() {
     
     animateDFS();
 }
-
 function updateQueueVisualization() {
     const queueContainer = document.getElementById('queue-container');
-    
+    const title = document.getElementById('queue-title');
+
     queueContainer.innerHTML = '';
-    
+
     if (activeNodes.length === 0) {
         queueContainer.innerHTML = '<div class="empty-queue">EMPTY</div>';
-        return;
-    }
-    
-    const queueElement = document.createElement('div');
-    queueElement.className = 'queue';
+    } else {
+        const queueElement = document.createElement('div');
+        queueElement.className = 'queue';
 
-    activeNodes.forEach(nodeId => {
-        const nodeElement = document.createElement('div');
-        nodeElement.className = 'queue-node';
-        nodeElement.textContent = nodeId;
-        queueElement.appendChild(nodeElement);
-    });
-    
-    queueContainer.appendChild(queueElement);
+        activeNodes.forEach(nodeId => {
+            const nodeElement = document.createElement('div');
+            nodeElement.className = 'queue-node';
+            nodeElement.textContent = nodeId;
+            queueElement.appendChild(nodeElement);
+        });
+
+        queueContainer.appendChild(queueElement);
+    }
+
+    // ✅ 標題決定邏輯
+    if (processing) {
+        if (dfsQueue.length > 0 || stepMode && bfsQueue.length === 0) {
+            title.textContent = 'Stack for DFS';
+        } else if (bfsQueue.length > 0) {
+            title.textContent = 'Queue for BFS';
+        } else {
+            title.textContent = 'Stack / Queue';
+        }
+    } else {
+        title.textContent = 'Stack / Queue';
+    }
 }
+
+
 
 function generateAllDFSSteps() {
     dfsQueue = [];
