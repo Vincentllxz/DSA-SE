@@ -17,15 +17,20 @@ let tempEdgeStart = null;
 let mode = 'none'; // 'add-node', 'add-edge', 'remove'
 
 let visited = new Set();
+let bfsVisited = new Set();
 let inTime = {};
 let outTime = {};
 let time = 0;
 let dfsStack = [];
 let dfsQueue = [];
 let activeNodes = []; // for Stack visualization
+let bfsQueue = [];
+let bfsSteps = [];
 let processing = false;
 let stepMode = false;
 let animationSpeed = 1000;
+
+
 
 class Node {
     constructor(id, x, y) {
@@ -353,6 +358,40 @@ function generateAllDFSSteps() {
     time = 0;
 }
 
+function generateAllBFSSteps() {
+    bfsSteps = [];
+    bfsVisited = new Set();
+
+    const nodeIds = nodes.map(node => node.id);
+    for (const startId of nodeIds) {
+        if (!bfsVisited.has(startId)) {
+            const q = [startId];
+            bfsVisited.add(startId);
+            bfsSteps.push({ type: 'visit', nodeId: startId });
+
+            while (q.length > 0) {
+                const curr = q.shift();
+
+                const neighbors = getNeighbors(curr);
+                for (const neighbor of neighbors) {
+                    if (!bfsVisited.has(neighbor)) {
+                        bfsVisited.add(neighbor);
+                        bfsSteps.push({ type: 'explore-edge', source: curr, target: neighbor });
+                        bfsSteps.push({ type: 'visit', nodeId: neighbor });
+                        q.push(neighbor);
+                    }
+                }
+
+                bfsSteps.push({ type: 'leave', nodeId: curr });
+            }
+        }
+    }
+
+    bfsQueue = [...bfsSteps];
+    activeNodes = [];
+}
+
+
 function getNeighbors(nodeId) {
     const neighbors = [];
     edges.forEach(edge => {
@@ -417,6 +456,39 @@ function animateDFS() {
     }
 }
 
+function animateBFS() {
+    if (!processing || bfsQueue.length === 0) {
+        if (processing) processing = false;
+        return;
+    }
+
+    const step = bfsQueue.shift();
+
+    if (step.type === 'visit') {
+        const node = nodes.find(n => n.id === step.nodeId);
+        if (node) {
+            node.setStatus('visiting');
+            activeNodes.push(step.nodeId);
+            updateQueueVisualization();
+        }
+    } else if (step.type === 'leave') {
+        const node = nodes.find(n => n.id === step.nodeId);
+        if (node) {
+            node.setStatus('visited');
+            const index = activeNodes.indexOf(step.nodeId);
+            if (index !== -1) activeNodes.splice(index, 1);
+            updateQueueVisualization();
+        }
+    } else if (step.type === 'explore-edge') {
+        const edge = edges.find(e => e.source === step.source && e.target === step.target);
+        if (edge) edge.setVisited(true);
+    }
+
+    draw();
+    if (!stepMode) setTimeout(() => animateBFS(), animationSpeed);
+}
+
+
 
 function stepDFS() {
     if (!processing) {
@@ -431,6 +503,20 @@ function stepDFS() {
     
     animateDFS();
 }
+
+function stepBFS() {
+    if (!processing) {
+        processing = true;
+        stepMode = true;
+
+        if (bfsQueue.length === 0) {
+            generateAllBFSSteps();
+        }
+    }
+
+    animateBFS();
+}
+
 
 // DEBUGING
 // function log(message) {
@@ -539,6 +625,15 @@ function removeElement(x, y) {
 document.getElementById('reset').addEventListener('click', resetGraph);
 document.getElementById('run-dfs').addEventListener('click', runDFS);
 document.getElementById('step-dfs').addEventListener('click', stepDFS);
+document.getElementById('run-bfs').addEventListener('click', () => {
+    resetDFS();
+    processing = true;
+    stepMode = false;
+    document.getElementById('step-bfs').disabled = false;
+    generateAllBFSSteps();
+    animateBFS();
+});
+document.getElementById('step-bfs').addEventListener('click', stepBFS);
 
 document.getElementById('add-node').addEventListener('click', () => {
     mode = mode === 'add-node' ? 'none' : 'add-node';
